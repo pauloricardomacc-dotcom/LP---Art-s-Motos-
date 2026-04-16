@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:ital,wght@0,700;0,800;1,700;1,800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  
+  --color-brand-red: #e31d1a;
+  --color-brand-yellow: #FFD700;
+  --color-obsidian: #0A0A0A;
+  --color-lead: #1A1A1A;
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+@layer base {
+  body {
+    @apply bg-obsidian text-white font-sans antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display font-extrabold uppercase italic tracking-tighter;
+  }
+}
+
+@keyframes pulse-yellow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+  }
+}
+
+.animate-pulse-yellow {
+  animation: pulse-yellow 2s infinite;
+}
+
+@keyframes pulse-red-subtle {
+  0% { text-shadow: 0 0 0 rgba(211, 18, 23, 0); }
+  50% { text-shadow: 0 0 10px rgba(211, 18, 23, 0.4); }
+  100% { text-shadow: 0 0 0 rgba(211, 18, 23, 0); }
+}
+
+.animate-pulse-red-subtle {
+  animation: pulse-red-subtle 3s infinite;
+}
+
+.glass-card {
+  @apply bg-glass backdrop-blur-md border border-white/10 shadow-2xl;
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-yellow to-yellow-500;
+}
+
+.btn-primary {
+  @apply bg-brand-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all active:scale-95 shadow-[0_0_20px_rgba(211,18,23,0.3)] flex items-center justify-center gap-2;
+}
+
+.btn-secondary {
+  @apply border-2 border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-obsidian font-bold py-4 px-8 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2;
+}
+
+.section-white {
+  @apply bg-white text-obsidian py-20;
+}
+
+.section-dark {
+  @apply bg-obsidian text-white py-20;
+}
+
+.thumb-nav {
+  @apply fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-obsidian/40 backdrop-blur-2xl p-2.5 rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:hidden;
+}
+
+.nav-item-mobile {
+  @apply w-12 h-12 flex items-center justify-center rounded-[18px] text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300;
+}
+
+.nav-item-mobile.active {
+  @apply text-brand-red bg-brand-red/10 border border-brand-red/20;
+}
+
+.bg-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.safe-bottom {
+  @apply pb-32 md:pb-0;
+}
