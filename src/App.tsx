@@ -418,7 +418,7 @@ export default function App() {
                     </div>
                     <div>
                       <label className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] text-brand-red font-black block mb-2 sm:mb-3">Onde Estamos</label>
-                      <p className="text-lg sm:text-xl font-bold mb-1">R. Bento Ribeiro, 140 - Loja 2</p>
+                      <p className="text-lg sm:text-xl font-bold mb-1">R. Bento Ribeiro, 148 - Loja 2</p>
                       <p className="text-gray-500 text-sm sm:text-base font-medium">Bairro Alto, Curitiba - PR</p>
                     </div>
                   </div>
