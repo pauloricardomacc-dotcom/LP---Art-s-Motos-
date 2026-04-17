@@ -23,6 +23,8 @@ import {
 import { motion } from 'motion/react';
 import useEmblaCarousel from 'embla-carousel-react';
 
+import Autoplay from 'embla-carousel-autoplay';
+
 const LOGO_URL = "https://i.imgur.com/S3mNLl2.png";
 
 const services = [
@@ -59,18 +61,16 @@ const services = [
 ];
 
 const testimonials = [
-  {
-    name: "Anne Silva",
-    image: "https://i.imgur.com/ChpdRym.jpeg",
-  },
-  {
-    name: "Matheus",
-    image: "https://i.imgur.com/nhno6vK.jpeg",
-  },
-  {
-    name: "Vanuza",
-    image: "https://i.imgur.com/0mPR3Jc.jpeg",
-  },
+  { name: "Depoimento 1", image: "https://i.imgur.com/Pkwmdzc.png" },
+  { name: "Depoimento 2", image: "https://i.imgur.com/Oy5O0EW.png" },
+  { name: "Depoimento 3", image: "https://i.imgur.com/1PuB2HH.png" },
+  { name: "Depoimento 4", image: "https://i.imgur.com/9yhKhzC.png" },
+  { name: "Depoimento 5", image: "https://i.imgur.com/jlC45Y6.png" },
+  { name: "Depoimento 6", image: "https://i.imgur.com/KgOlZMF.png" },
+  { name: "Depoimento 7", image: "https://i.imgur.com/LylbGFY.png" },
+  { name: "Depoimento 8", image: "https://i.imgur.com/1RgP2dq.png" },
+  { name: "Depoimento 9", image: "https://i.imgur.com/pjgQNX8.png" },
+  { name: "Depoimento 10", image: "https://i.imgur.com/LFKbzTu.png" },
 ];
 
 export default function App() {
@@ -81,7 +81,7 @@ export default function App() {
     align: 'center',
     slidesToScroll: 1,
     containScroll: false
-  });
+  }, [Autoplay({ delay: 3500, stopOnInteraction: false })]);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -170,7 +170,7 @@ export default function App() {
       </nav>
 
       {/* Thumb Navigation (Mobile Only) */}
-      <div className="thumb-nav" role="navigation" aria-label="Navegação móvel">
+      <div className={`thumb-nav ${activeSection === 'sobre' ? 'on-white' : ''}`} role="navigation" aria-label="Navegação móvel">
         {[
           { id: 'hero', icon: <Home className="w-5 h-5" />, label: 'Início' },
           { id: 'serviços', icon: <Wrench className="w-5 h-5" />, label: 'Serviços' },
@@ -374,15 +374,16 @@ export default function App() {
           <div className="overflow-visible" ref={emblaRef}>
             <div className="flex -ml-4">
               {testimonials.map((t, i) => (
-                <div key={i} className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4">
+                <div key={i} className="flex-[0_0_75%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4 py-4">
                   <motion.div 
-                    whileHover={{ y: -10 }}
-                    className="glass-card overflow-hidden rounded-[32px] h-full border border-white/5 shadow-2xl"
+                    whileHover={{ scale: 1.02 }}
+                    className="glass-card overflow-hidden rounded-[32px] h-full border border-white/5 shadow-2xl relative group"
                   >
+                    <div className="absolute inset-0 bg-brand-red/0 group-hover:bg-brand-red/5 transition-colors pointer-events-none z-10" />
                     <img 
                       src={t.image} 
                       alt={t.name} 
-                      className="w-full h-auto object-cover"
+                      className="w-full h-auto object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
                       referrerPolicy="no-referrer"
                     />
                   </motion.div>

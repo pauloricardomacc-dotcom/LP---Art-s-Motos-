@@ -82,9 +82,17 @@
 }
 
 .thumb-nav {
-  @apply fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-3 bg-obsidian/60 backdrop-blur-3xl p-2 rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:hidden min-w-[max-content] select-none;
+  @apply fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-3 bg-obsidian/60 backdrop-blur-3xl p-2 rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:hidden min-w-[max-content] select-none transition-all duration-500;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.thumb-nav.on-white {
+  @apply bg-obsidian/95 border-brand-red/30 shadow-[0_20px_60px_rgba(227,29,26,0.2)];
+}
+
+.thumb-nav.on-white .nav-item-mobile:not(.active) {
+  @apply text-white/50;
 }
 
 .nav-item-mobile {
