@@ -76,6 +76,7 @@ const testimonials = [
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [hideHeader, setHideHeader] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
     align: 'center',
@@ -93,7 +94,14 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollPos = window.scrollY;
+      setScrolled(scrollPos > 50);
+      
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Hide header when close to the footer to integrate branding
+      setHideHeader(scrollPos + windowHeight > documentHeight - 750);
       
       const sections = ['hero', 'serviços', 'sobre', 'depoimentos', 'contato', 'mapa'];
       const current = [...sections].reverse().find(section => {
@@ -129,7 +137,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-obsidian selection:bg-brand-red selection:text-white safe-bottom">
       {/* Navigation - Desktop */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-obsidian/90 backdrop-blur-xl py-1 border-b border-white/5' : 'bg-transparent py-3'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-700 bg-obsidian/90 backdrop-blur-xl border-b border-white/5 ${hideHeader ? '-translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'} ${scrolled ? 'py-1' : 'py-3'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => scrollToSection('hero')}>
             <div className="relative">
@@ -519,43 +527,52 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 bg-obsidian border-t border-white/5">
+      <footer className="pt-12 pb-16 bg-obsidian border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-16">
-            <div className="flex items-center gap-5">
+          <div className="flex flex-col items-center text-center mb-10">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col items-center gap-4"
+            >
               <img 
                 src={LOGO_URL}
-                alt="Art's Motos Logo"
-                className="w-20 h-20 object-contain"
+                alt="Logo Art's Motos"
+                className="w-20 h-20 object-contain brightness-90"
               />
-              <div className="flex flex-col">
-                <span className="font-display font-black uppercase italic tracking-tight text-3xl block">OFICINA <span className="text-brand-red">ART'S MOTOS</span></span>
-                <span className="text-[10px] uppercase tracking-[0.5em] text-gray-500 font-bold">Alta Performance e Qualidade</span>
+              <div className="flex flex-col items-center">
+                <h2 className="text-2xl sm:text-4xl font-display font-black uppercase italic tracking-tighter leading-none mb-2">
+                  OFICINA <span className="text-brand-red">ART'S MOTOS</span>
+                </h2>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.5em] text-gray-500 font-bold">
+                  Alta Performance e Qualidade
+                </p>
               </div>
-            </div>
-            
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-              {[
-                { name: 'Serviços', icon: <Wrench className="w-5 h-5" /> },
-                { name: 'Sobre', icon: <Award className="w-5 h-5" /> },
-                { name: 'Contato', icon: <Phone className="w-5 h-5" /> }
-              ].map(item => (
-                <button 
-                  key={item.name} 
-                  onClick={() => scrollToSection(item.name.toLowerCase())}
-                  className="flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] font-black text-gray-400 hover:text-brand-red transition-all group animate-pulse-red-subtle"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-all">
-                    {item.icon}
-                  </div>
-                  {item.name}
-                </button>
-              ))}
-            </div>
+            </motion.div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-10 mb-10">
+            {[
+              { name: 'Serviços', icon: <Wrench className="w-5 h-5" /> },
+              { name: 'Sobre', icon: <Award className="w-5 h-5" /> },
+              { name: 'Contato', icon: <Phone className="w-5 h-5" /> }
+            ].map(item => (
+              <button 
+                key={item.name} 
+                onClick={() => scrollToSection(item.name.toLowerCase())}
+                className="flex flex-col items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-black text-gray-500 hover:text-brand-red transition-all group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-all transform group-active:scale-90">
+                  {item.icon}
+                </div>
+                {item.name}
+              </button>
+            ))}
           </div>
           
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5">
-            <p className="text-gray-600 text-[10px] uppercase tracking-[0.4em] font-black">
+          <div className="pt-8 border-t border-white/5">
+            <p className="text-gray-600 text-[8px] sm:text-[9px] uppercase tracking-[0.4em] font-black text-center opacity-80">
               © {new Date().getFullYear()} Oficina Art's Motos. Todos os direitos reservados.
             </p>
           </div>

@@ -109,5 +109,5 @@
 }
 
 .safe-bottom {
-  @apply pb-32 md:pb-0;
+  @apply pb-20 md:pb-0;
 }
