@@ -15,10 +15,19 @@
 @layer base {
   body {
     @apply bg-obsidian text-white font-sans antialiased overflow-x-hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern", "liga", "clig", "calt";
+    -webkit-tap-highlight-color: transparent;
   }
   
   h1, h2, h3, h4 {
     @apply font-display font-extrabold uppercase italic tracking-tighter;
+  }
+
+  button, a {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian;
   }
 }
 
@@ -73,11 +82,14 @@
 }
 
 .thumb-nav {
-  @apply fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-obsidian/40 backdrop-blur-2xl p-2.5 rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:hidden;
+  @apply fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-3 bg-obsidian/60 backdrop-blur-3xl p-2 rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:hidden min-w-[max-content] select-none;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .nav-item-mobile {
-  @apply w-12 h-12 flex items-center justify-center rounded-[18px] text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300;
+  @apply w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-[18px] text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300;
+  -webkit-touch-callout: none;
 }
 
 .nav-item-mobile.active {

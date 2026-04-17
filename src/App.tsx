@@ -6,23 +6,21 @@
 import { useState, useEffect, useCallback } from 'react';
 import { 
   Wrench, 
-  ShieldCheck, 
   Award, 
   MapPin, 
   Phone, 
   Clock, 
   Instagram, 
-  Menu, 
-  X, 
-  ChevronRight, 
   Star,
   Bike,
   Zap,
   Hammer,
+  MessageCircle,
+  Home,
   ChevronLeft,
-  MessageCircle
+  ChevronRight
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 const LOGO_URL = "https://i.imgur.com/S3mNLl2.png";
@@ -35,7 +33,7 @@ const services = [
   },
   {
     title: "Alinhamento de Chassi",
-    description: "Tecnologia de precisão para garantir a geometria original da sua moto.",
+    description: "Tecnologia e precisão para garantir a geometria original da sua moto.",
     icon: <Bike className="w-6 h-6" />,
   },
   {
@@ -76,7 +74,6 @@ const testimonials = [
 ];
 
 export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
@@ -98,8 +95,8 @@ export default function App() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      const sections = ['hero', 'serviços', 'sobre', 'depoimentos', 'contato'];
-      const current = sections.find(section => {
+      const sections = ['hero', 'serviços', 'sobre', 'depoimentos', 'contato', 'mapa'];
+      const current = [...sections].reverse().find(section => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -126,7 +123,6 @@ export default function App() {
         top: offsetPosition,
         behavior: 'smooth'
       });
-      setIsMenuOpen(false);
     }
   };
 
@@ -139,7 +135,7 @@ export default function App() {
             <div className="relative">
               <img 
                 src={LOGO_URL}
-                alt="Art's Motos Logo"
+                alt="Logo Art's Motos"
                 className="w-24 h-24 object-contain transform group-hover:scale-110 transition-transform drop-shadow-2xl"
               />
             </div>
@@ -174,26 +170,36 @@ export default function App() {
       </nav>
 
       {/* Thumb Navigation (Mobile Only) */}
-      <div className="thumb-nav">
+      <div className="thumb-nav" role="navigation" aria-label="Navegação móvel">
         {[
-          { id: 'hero', icon: <Bike className="w-5 h-5" /> },
-          { id: 'serviços', icon: <Wrench className="w-5 h-5" /> },
-          { id: 'sobre', icon: <Award className="w-5 h-5" /> },
-          { id: 'contato', icon: <Phone className="w-5 h-5" /> }
+          { id: 'hero', icon: <Home className="w-5 h-5" />, label: 'Início' },
+          { id: 'serviços', icon: <Wrench className="w-5 h-5" />, label: 'Serviços' },
+          { id: 'sobre', icon: <Award className="w-5 h-5" />, label: 'Sobre' },
+          { id: 'contato', icon: <Phone className="w-5 h-5" />, label: 'Contato' }
         ].map((item) => (
           <button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
             className={`nav-item-mobile ${activeSection === item.id ? 'active' : ''}`}
+            aria-label={item.label}
           >
             {item.icon}
           </button>
         ))}
+        <button
+          onClick={() => scrollToSection('mapa')}
+          className={`nav-item-mobile ${activeSection === 'mapa' ? 'active' : ''}`}
+          aria-label="Ver Mapa na Página"
+          title="Ver localização no mapa"
+        >
+          <MapPin className="w-5 h-5" />
+        </button>
         <a 
           href="https://wa.me/554196688144?text=Olá!%20Estou%20navegando%20no%20site%20e%20tenho%20uma%20dúvida%20rápida%20sobre%20a%20Art's%20Motos.%20Pode%20me%20ajudar?" 
           target="_blank"
           rel="noreferrer"
-          className="w-12 h-12 bg-[#e31d1a] rounded-[18px] flex items-center justify-center text-white shadow-[0_0_15px_rgba(227,29,26,0.4)] active:scale-95 transition-all"
+          className="w-11 h-11 sm:w-12 sm:h-12 bg-[#e31d1a] rounded-[18px] flex items-center justify-center text-white shadow-[0_0_15px_rgba(227,29,26,0.4)] active:scale-95 transition-all ml-1"
+          aria-label="Falar no WhatsApp"
         >
           <MessageCircle className="w-6 h-6 fill-white/10" />
         </a>
@@ -204,7 +210,7 @@ export default function App() {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=1920" 
-            alt="Premium Motorcycle" 
+            alt="Moto Premium" 
             className="w-full h-full object-cover scale-110"
             referrerPolicy="no-referrer"
           />
@@ -312,7 +318,7 @@ export default function App() {
               <div className="aspect-square sm:aspect-[4/5] rounded-[30px] sm:rounded-[40px] overflow-hidden shadow-2xl relative z-10">
                 <img 
                   src="https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Workshop Detail" 
+                  alt="Detalhe da Oficina" 
                   className="w-full h-full object-cover object-center"
                   referrerPolicy="no-referrer"
                 />
@@ -470,7 +476,7 @@ export default function App() {
               </div>
 
               {/* Google Maps */}
-              <div className="relative h-[450px] lg:h-auto bg-lead overflow-hidden flex flex-col">
+              <div id="mapa" className="relative h-[450px] lg:h-auto bg-lead overflow-hidden flex flex-col">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.842798363749!2d-49.20853542461047!3d-25.41009187757342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce5e6f8f8f8f7%3A0x8f8f8f8f8f8f8f8f!2sR.%20Bento%20Ribeiro%2C%20140%20-%20Loja%202%20-%20Bairro%20Alto%2C%20Curitiba%20-%20PR%2C%2082840-030!5e0!3m2!1spt-BR!2sbr!4v1713131313131!5m2!1spt-BR!2sbr" 
                   className="w-full h-full"
