@@ -539,7 +539,7 @@ export default function App() {
               <img 
                 src={LOGO_URL}
                 alt="Logo Art's Motos"
-                className="w-32 h-32 sm:w-40 sm:h-40 object-contain brightness-95"
+                className="w-40 h-40 sm:w-60 sm:h-60 object-contain brightness-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
               />
               <div className="flex flex-col items-center">
                 <h2 className="text-2xl sm:text-4xl font-display font-black uppercase italic tracking-tighter leading-none mb-2">
