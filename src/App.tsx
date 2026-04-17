@@ -240,8 +240,8 @@ export default function App() {
             </div>
             
             <h1 className="text-5xl sm:text-6xl md:text-9xl leading-[0.9] mb-6 sm:mb-8">
-              QUALIDADE <br />
-              <span className="text-brand-red">GARANTIDA.</span> <br />
+              QUALIDADE. <br />
+              <span className="text-brand-red">GARANTIA.</span> <br />
               <span className="text-white/40 text-4xl sm:text-6xl md:text-9xl">CONFIANÇA.</span>
             </h1>
             
