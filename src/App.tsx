@@ -242,10 +242,10 @@ export default function App() {
             <h1 className="text-5xl sm:text-6xl md:text-9xl leading-[0.9] mb-6 sm:mb-8">
               QUALIDADE. <br />
               <span className="text-brand-red">GARANTIA.</span> <br />
-              <span className="text-white/40 text-4xl sm:text-6xl md:text-9xl">CONFIANÇA.</span>
+              <span className="text-white/80 text-4xl sm:text-6xl md:text-9xl">CONFIANÇA.</span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-10 sm:mb-12 max-w-xl leading-relaxed font-medium">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-10 sm:mb-12 max-w-xl leading-relaxed font-medium drop-shadow-md">
               Oficina especializada em mecânica de alta qualidade e restauração técnica. O cuidado que sua moto merece com o conhecimento que você confia.
             </p>
             
